@@ -8,6 +8,6 @@
                 text: '確定',
                 type: 'button-dark'
             }]
-        })
+        });
     }
 }]);
