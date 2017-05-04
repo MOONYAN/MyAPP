@@ -8,5 +8,5 @@
           }).error(function (data, status, headers, config) {
               alert("Error - Data:" + data + " status:" + status);
           });
-    }
+    };
 }]);

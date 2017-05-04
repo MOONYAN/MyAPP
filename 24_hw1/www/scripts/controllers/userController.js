@@ -1,4 +1,4 @@
-﻿angular.module('2017Apps').controller('UserController', ['$rootScope', '$state', 'UserService', 'AccountService', 'AlertService', function ($rootScope, $state, UserService, AccountService, AlertService) {
+﻿angular.module('2017Apps').controller('UserController', ['$rootScope', 'UserService', 'AccountService', 'AlertService', function ($rootScope, UserService, AccountService, AlertService) {
     var self = this;
 
     var init = function () {
@@ -6,7 +6,8 @@
             self.isLoggedIn = false;
             self.user = {
                 username: '',
-                password: ''
+                password: '',
+                role: ''
             };
             self.account = {
                 name: '',
@@ -15,6 +16,7 @@
         } else {
             self.isLoggedIn = true;
             self.account = $rootScope.account;
+            self.mode = (self.account.role === 'manager') ? true : false;
         }
     };
 
@@ -27,24 +29,27 @@
             UserService.login(self.user, function (data) {
                 if (data.error)
                     AlertService.alertPopup(data.error, null);
-                else
+                else {
                     $rootScope.account = data.account;
-                self.account = $rootScope.account;
-                init();
+                    $rootScope.role = data.account.role;
+                    init();
+                }
             });
         }
     };
 
     self.openAccount = function () {
+        self.user.role = 'customer';
+
         if (!self.user.username || !self.user.password) {
             AlertService.alertPopup('請輸入帳號或密碼');
         } else {
             AccountService.openAccount(self.user, function (data) {
                 if (data.error) {
-                    AlertService.alertPopup(data.error);
+                    AlertService.alertPopup(data.error, null);
                 } else {
                     $rootScope.account = data.account;
-                    self.account = $rootScope.account;
+                    $rootScope.role = data.account.role;
                     init();
                 }
             })
@@ -53,17 +58,27 @@
 
     self.logout = function () {
         delete $rootScope.account;
+        delete $rootScope.role;
         init();
     };
 
     self.closeAccount = function () {
-        AccountService.closeAccount($rootScope.account._id, function (data) {
+        AccountService.closeAccount(self.account._id, function (data) {
             if (data.error) {
-                AlertService.alertPopup(data.error, null);
+                AlertService.alertPopup(data.error);
             } else {
                 delete $rootScope.account;
+                delete $rootScope.role;
                 init();
             }
         })
+    }
+
+    self.switchMode = function () {
+        AccountService.switchMode({ _id: self.account._id, role: self.mode ? 'manager' : 'customer' }, function (data) {
+            $rootScope.account = data.account;
+            $rootScope.role = data.account.role;
+            init();
+        });
     }
 }]);

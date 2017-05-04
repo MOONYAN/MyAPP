@@ -1,4 +1,4 @@
-﻿angular.module('2017Apps').controller('AccountsController', ['$rootScope', 'AccountService', function ($rootScope, AccountService) {
+﻿angular.module('2017Apps').controller('AccountsController', ['$rootScope', '$state', 'AccountService', function ($rootScope, $state, AccountService) {
     var self = this;
 
     var init = function () {
@@ -12,4 +12,8 @@
         }
     }
     init();
+
+    self.showTransactions = function (account) {
+        $state.go('tab.transactions', { account });
+    }
 }]);

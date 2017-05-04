@@ -1,4 +1,4 @@
-﻿angular.module('2017Apps').config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
+﻿angular.module('2017Apps').config(['$ionicConfigProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($ionicConfigProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/tab/user');
     $stateProvider
         .state('tab', {
@@ -22,6 +22,9 @@
         .state('tab.transactions', {
             url: '/transactions',
             cache: false,
+            params: {
+                account: null
+            }, 
             views: {
                 'tabContent-transactions': {
                     templateUrl: 'views/transactions.html',
@@ -41,6 +44,15 @@
                 }
             }
         })
+        .state('tab.messages', {
+            url: '/messages',
+            cache: false,
+            views: {
+                'tabContent-messages': {
+                    templateUrl: 'views/messages.html'
+                }
+            }
+        })
         .state('tab.user', {
             url: '/user',
             cache: false,
@@ -53,4 +65,5 @@
             }
         })
     $ionicConfigProvider.tabs.position('bottom');
+    $httpProvider.interceptors.push('tokenInterceptor');
 }]);

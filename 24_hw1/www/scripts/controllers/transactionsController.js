@@ -1,4 +1,4 @@
-﻿angular.module('2017Apps').controller('TransactionsController', ['$rootScope', '$ionicPopup', '$filter', 'TransactionService', function ($rootScope, $ionicPopup, $filter, TransactionService) {
+﻿angular.module('2017Apps').controller('TransactionsController', ['$rootScope', '$state', '$ionicPopup', '$filter', 'AccountService', function ($rootScope, $state, $ionicPopup, $filter, AccountService) {
     var self = this;
 
     var init = function () {
@@ -6,7 +6,9 @@
             self.isLoggedIn = false;
         else {
             self.isLoggedIn = true;
-            TransactionService.getTransactions($rootScope.account._id, function (data) {
+            accountId = $state.params.account ? $state.params.account._id : $rootScope.account._id;
+            self.accountName = $state.params.account ? '：' + $state.params.account.name : '';
+            AccountService.getTransactions(accountId, function (data) {
                 self.transactions = data.transactions;
             });
         }

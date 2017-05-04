@@ -1,13 +1,13 @@
-﻿angular.module('2017Apps').service('AlertService', ['$ionicPopup', function ($ionicPopup) {
+﻿angular.module('2017Apps').service('AlertService', ['$ionicPopup', '$state', function ($ionicPopup, $state) {
     var self = this;
-    self.alertPopup = function (alertMessage) {
+    self.alertPopup = function (alertMessage, state) {
+        var button = { text: '確定', type: 'button-dark'};
+        button.onTap = state ? function(){ $state.go(state); } : null;
+
         $ionicPopup.alert({
-            title: '錯誤！',
+            title: state ? '帳戶作業' : '錯誤！',
             template: alertMessage,
-            buttons: [{
-                text: '確定',
-                type: 'button-dark'
-            }]
+            buttons: [button]
         });
     }
 }]);
