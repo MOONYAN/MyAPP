@@ -6,5 +6,14 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-fcm": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/guyromb/cordova-plugin-fcm-plus",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

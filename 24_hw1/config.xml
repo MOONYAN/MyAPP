@@ -8,7 +8,7 @@
   <vs:features />
   <preference name="SplashScreen" value="screen" />
   <preference name="windows-target-version" value="8.1" />
-  <preferevce name="DisallowOverscroll" value="true"/>
+  <preferevce name="DisallowOverscroll" value="true" />
   <!-- Support for Cordova 5.0.0 plugin system -->
   <plugin name="cordova-plugin-whitelist" version="1" />
   <allow-intent href="http://*/*" />
@@ -107,4 +107,5 @@
   <platform name="wp8">
     <splash src="res/screens/wp8/SplashScreenImage.png" width="768" height="1280" />
   </platform>
+  <plugin name="cordova-plugin-fcm" version="1.1.4" src="https://github.com/guyromb/cordova-plugin-fcm-plus" />
 </widget>
