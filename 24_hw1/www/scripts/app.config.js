@@ -68,7 +68,8 @@
                 url: '/sendMessage',
                 cache: false,
                 params: {
-                    accounts: null
+                    accounts: null,
+                    sale: null
                 },
                 views: {
                     'tabContent-sendMessage': {
@@ -89,9 +90,21 @@
                         controllerAs: 'userCtrl'
                     }
                 }
+            })
+        .state('tab.products',
+            {
+                url: '/products',
+                cache: false,
+                views: {
+                    'tabContent-products': {
+                        templateUrl: 'views/products.html',
+                        controller: 'ProductsController',
+                        controllerAs: 'productsCtrl'
+                    }
+                }
             });
+
     $ionicConfigProvider.tabs.position('bottom');
     $ionicConfigProvider.navBar.alignTitle('center');
     $httpProvider.interceptors.push('tokenInterceptor');
-
 }]);

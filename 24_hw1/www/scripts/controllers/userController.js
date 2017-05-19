@@ -25,6 +25,7 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
+                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.login(self.user, function (data) {
                     if (data.error)
                         AlertService.alertPopup('錯誤!', data.error);
@@ -47,6 +48,7 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
+                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.register(self.user, function (data) {
                     if (data.error) {
                         AlertService.alertPopup('錯誤!', data.error);
@@ -80,22 +82,20 @@
     };
 
     self.closeAccount = function () {
-        AccountService.closeAccount($rootScope.storeId,
-            self.account._id,
-            function(data) {
-                if (data.error) {
-                    AlertService.alertPopup('錯誤!', data.error);
-                } else {
-                    FCMPlugin.unsubscribeFromTopic($rootScope.storeTopic);
-                    delete $rootScope.account;
-                    delete $rootScope.role;
-                    init();
-                }
-            });
+        AccountService.closeAccount($rootScope.storeId, self.account._id, function (data) {
+            if (data.error) {
+                AlertService.alertPopup('錯誤!', data.error);
+            } else {
+                FCMPlugin.unsubscribeFromTopic($rootScope.storeTopic);
+                delete $rootScope.account;
+                delete $rootScope.role;
+                init();
+            }
+        });
     };
 
     self.switchMode = function () {
-        AccountService.switchMode({ _id: self.account._id, role: self.mode ? 'manager' : 'customer' }, function (data) {
+        AccountService.switchMode({ accountId: self.account._id, role: self.mode ? 'manager' : 'customer' }, function (data) {
             $rootScope.account = data.account;
             $rootScope.role = data.account.role;
             init();
