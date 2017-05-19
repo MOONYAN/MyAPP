@@ -25,7 +25,7 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
-                self.user.deviceToken = 'fZ-mb5ke3hc:APA91bHTuTLk1PjEqllZAD-7Eea41vGdQ-B4PGMODGjRrfyFzSn-yFHGwMvB8kYo69_qmVOvqUSVSk2WoUmWtz7wu1668kwtfEygE3-P46hAWV3qnDcKP4bIHmQmtY5lg-5lz3KqSjGz';
+                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.login(self.user, function (data) {
                     if (data.error)
                         AlertService.alertPopup('錯誤!', data.error);
@@ -48,7 +48,7 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
-                self.user.deviceToken = 'fZ-mb5ke3hc:APA91bHTuTLk1PjEqllZAD-7Eea41vGdQ-B4PGMODGjRrfyFzSn-yFHGwMvB8kYo69_qmVOvqUSVSk2WoUmWtz7wu1668kwtfEygE3-P46hAWV3qnDcKP4bIHmQmtY5lg-5lz3KqSjGz';
+                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.register(self.user, function (data) {
                     if (data.error) {
                         AlertService.alertPopup('錯誤!', data.error);
