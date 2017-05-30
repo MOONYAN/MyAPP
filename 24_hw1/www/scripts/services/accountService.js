@@ -2,6 +2,7 @@
     var self = this;
 
     self.openAccount = function (account, onSuccess) {
+        $rootScope.useCenterToken = true;
         $http.post($rootScope.iStoreUrl + '/account', account).
            success(function (data, status, headers, config) {
                (onSuccess || angular.noop)(data);
@@ -11,6 +12,7 @@
     };
 
     self.loginAccount = function (account, onSuccess) {
+        $rootScope.useCenterToken = true;
         $http.post($rootScope.iStoreUrl + '/account/login', account).
             success(function (data, status, headers, config) {
                 (onSuccess || angular.noop)(data);

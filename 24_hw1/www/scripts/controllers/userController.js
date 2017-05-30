@@ -70,6 +70,8 @@
     };
 
     self.openAccount = function (storeId) {
+        delete $rootScope.account;
+        init();
         $rootScope.setStoreId(storeId);
         AccountService.openAccount({ userId: self.loginUser._id, username: self.loginUser.username }, function (data) {
             if (data.error)
@@ -81,18 +83,23 @@
         });
     };
 
-    self.loginAccount = function(account) {
-        $rootScope.setStoreId(account.storeId);
-        AccountService.loginAccount({ accountId: account.accountId },
-            function(data) {
-                if (data.err)
-                    AlertService.alertPopup('錯誤!', data.error);
-                else {
-                    $rootScope.account = data.account;
-                    $rootScope.role = data.account.role;
-                    init();
-                }
-            });
+    self.loginAccount = function (account) {
+        delete $rootScope.account;
+        if (!account) {
+            init();
+        } else {
+            $rootScope.setStoreId(account.storeId);
+            AccountService.loginAccount({ accountId: account.accountId },
+                function (data) {
+                    if (data.err)
+                        AlertService.alertPopup('錯誤!', data.error);
+                    else {
+                        $rootScope.account = data.account;
+                        $rootScope.role = data.account.role;
+                        init();
+                    }
+                });
+        }
     };
 
     self.closeAccount = function () {

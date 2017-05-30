@@ -1,9 +1,10 @@
-angular.module('2017Apps').factory('tokenInterceptor', [function () {
+angular.module('2017Apps').factory('tokenInterceptor', ['$rootScope', function ($rootScope) {
     var roleToken;
     return {
         request: function (config) {
             if (roleToken)
-                config.headers.Authorization = roleToken;
+                config.headers.Authorization = $rootScope.useCenterToken ? $rootScope.centerToken : roleToken;
+            $rootScope.useCenterToken = false;
             return config;
         },
         response: function (response) {
