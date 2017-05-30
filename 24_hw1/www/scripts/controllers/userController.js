@@ -12,7 +12,8 @@
         } else {
             self.isLoggedIn = true;
             self.user = $rootScope.user;
-            self.accounts = $rootScope.user.accounts;
+            self.loginUser = $rootScope.loginUser;
+            self.accounts = $rootScope.loginUser.accounts;
             self.account = $rootScope.account || null;
             self.mode = ($rootScope.role === 'manager') ? true : false;
             var openedStores = self.accounts.map((account) => { return account.storeId; });
@@ -32,7 +33,8 @@
                     if (data.error)
                         AlertService.alertPopup('錯誤!', data.error);
                     else {
-                        $rootScope.user = data.loginUser;
+                        $rootScope.user = self.user;
+                        $rootScope.loginUser = data.loginUser;
                         init();
                     }
                 });
@@ -50,7 +52,8 @@
                     if (data.error) {
                         AlertService.alertPopup('錯誤!', data.error);
                     } else {
-                        $rootScope.user = data.loginUser;
+                        $rootScope.user = self.user;
+                        $rootScope.loginUser = data.loginUser;
                         init();
                     }
                 });
@@ -60,6 +63,7 @@
 
     self.logout = function () {
         delete $rootScope.user;
+        delete $rootScope.loginUser;
         delete $rootScope.account;
         delete $rootScope.role;
         init();
@@ -67,7 +71,7 @@
 
     self.openAccount = function (storeId) {
         $rootScope.setStoreId(storeId);
-        AccountService.openAccount({ userId: self.user._id, username: self.user.username}, function (data) {
+        AccountService.openAccount({ userId: self.loginUser._id, username: self.loginUser.username }, function (data) {
             if (data.error)
                 AlertService.alertPopup('錯誤!', data.error);
             else {

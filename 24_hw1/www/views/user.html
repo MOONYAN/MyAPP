@@ -29,7 +29,7 @@
         <div ng-if="userCtrl.isLoggedIn">
             <div class="card">
                 <div class="item item-text-wrap">
-                    <h2 align="center">帳號： {{userCtrl.user.username}}</h2>
+                    <h2 align="center">帳號： {{userCtrl.loginUser.username}}</h2>
                     <br />
                     <div class="row">
                         <div class="col col-100">
@@ -43,12 +43,12 @@
 
             <div class="card">
                 <div class="item item-text-wrap">
-                    <label class="item item-input item-select">
-                        <div class="input-label">
+                    <div class="item item-input item-select">
+                        <label class="input-label">
                             商店開戶：
-                        </div>
+                        </label>
                         <select ng-model="userCtrl.selectStoreId" ng-options="storeId for storeId in userCtrl.unOpenStores"></select>
-                    </label>
+                    </div>
                     <div class="row">
                         <div class="col col-100">
                             <button class="button button-block button-dark" ng-click="userCtrl.openAccount(userCtrl.selectStoreId)">
@@ -61,12 +61,12 @@
 
             <div class="card">
                 <div class="item item-text-wrap">
-                    <label class="item item-input item-select">
-                        <div class="input-label">
+                    <div class="item item-input item-select">
+                        <label class="input-label">
                             商店作業：
-                        </div>
+                        </label>
                         <select ng-model="userCtrl.selectAccount" ng-options="'Store'+ account.storeId for account in userCtrl.accounts" ng-change="userCtrl.loginAccount(userCtrl.selectAccount)"></select>
-                    </label>
+                    </div>
                     <div ng-if="userCtrl.account">
                         <br />
                         <h2 align="center">帳戶： {{userCtrl.account.name}}</h2>
@@ -76,12 +76,12 @@
                         <div class="row">
                             <div class="col col-75">模式：{{(userCtrl.account.role === 'customer') ? '顧客': '經理'}}</div>
                             <div class="col col-25">
-                                <label class="toggle toggle-dark">
+                                <div class="toggle toggle-dark">
                                     <input type="checkbox" ng-model="userCtrl.mode" ng-click="userCtrl.switchMode()">
                                     <div class="track">
                                         <div class="handle"></div>
                                     </div>
-                                </label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
