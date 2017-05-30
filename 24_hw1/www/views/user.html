@@ -76,12 +76,12 @@
                         <div class="row">
                             <div class="col col-75">模式：{{(userCtrl.account.role === 'customer') ? '顧客': '經理'}}</div>
                             <div class="col col-25">
-                                <div class="toggle toggle-dark">
+                                <label class="toggle toggle-dark">
                                     <input type="checkbox" ng-model="userCtrl.mode" ng-click="userCtrl.switchMode()">
                                     <div class="track">
                                         <div class="handle"></div>
                                     </div>
-                                </div>
+                                </label>
                             </div>
                         </div>
                         <div class="row">
