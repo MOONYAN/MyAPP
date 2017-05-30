@@ -7,10 +7,10 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-fcm": {
             "PACKAGE_NAME": "com.ilab.bankApp"
         },
-        "cordova-plugin-fcm": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ilab.bankApp"
         }
     },

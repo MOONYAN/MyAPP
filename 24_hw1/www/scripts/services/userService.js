@@ -2,7 +2,7 @@
     var self = this;
 
     self.login = function (user, onSuccess) {
-        $http.post($rootScope.iStoreUrl + '/user/login', user).
+        $http.post($rootScope.iStoreCenter + '/user/login', user).
           success(function (data, status, headers, config) {
               (onSuccess || angular.noop)(data);
           }).error(function (data, status, headers, config) {
@@ -11,7 +11,7 @@
     };
 
     self.register = function (user, onSuccess) {
-        $http.post($rootScope.iStoreUrl + '/user', user).
+        $http.post($rootScope.iStoreCenter + '/user', user).
           success(function (data, status, headers, config) {
               (onSuccess || angular.noop)(data);
           }).error(function (data, status, headers, config) {

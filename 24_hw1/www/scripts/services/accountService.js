@@ -1,8 +1,8 @@
 ﻿angular.module('2017Apps').service('AccountService', ['$rootScope', '$http', function ($rootScope, $http) {
     var self = this;
 
-    self.openAccount = function (user, onSuccess) {
-        $http.post($rootScope.iStoreUrl + '/account', user).
+    self.openAccount = function (account, onSuccess) {
+        $http.post($rootScope.iStoreUrl + '/account', account).
            success(function (data, status, headers, config) {
                (onSuccess || angular.noop)(data);
            }).error(function (data, status, headers, config) {
@@ -10,8 +10,17 @@
            });
     };
 
-    self.switchMode = function (userId, onSuccess) {
-        $http.put($rootScope.iStoreUrl + '/account/role', userId).
+    self.loginAccount = function (account, onSuccess) {
+        $http.post($rootScope.iStoreUrl + '/account/login', account).
+            success(function (data, status, headers, config) {
+                (onSuccess || angular.noop)(data);
+            }).error(function (data, status, headers, config) {
+                alert("Error - Data:" + data + " status:" + status);
+            });
+    };
+
+    self.switchMode = function (account, onSuccess) {
+        $http.put($rootScope.iStoreUrl + '/account/role', account).
           success(function (data, status, headers, config) {
               (onSuccess || angular.noop)(data);
           }).error(function (data, status, headers, config) {
@@ -48,8 +57,8 @@
         });
     };
 
-    self.closeAccount = function (stroeId, accountId, onSuccess) {
-        $http.delete($rootScope.iStoreUrl + '/account/' + stroeId + '/' + accountId).
+    self.closeAccount = function (accountId, onSuccess) {
+        $http.delete($rootScope.iStoreUrl + '/account/' + accountId).
         success(function (data, status, headers, config) {
             (onSuccess || angular.noop)(data);
         }).

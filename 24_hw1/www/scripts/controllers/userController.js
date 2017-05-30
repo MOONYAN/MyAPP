@@ -12,8 +12,11 @@
         } else {
             self.isLoggedIn = true;
             self.user = $rootScope.user;
-            self.account = $rootScope.account ? $rootScope.account : null;
+            self.accounts = $rootScope.user.accounts;
+            self.account = $rootScope.account || null;
             self.mode = ($rootScope.role === 'manager') ? true : false;
+            var openedStores = self.accounts.map((account) => { return account.storeId; });
+            self.unOpenStores = ['00', '01', '02', '22', '24'].filter((storeId) => { return !openedStores.includes(storeId); });
         }
     };
 
@@ -25,16 +28,11 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
-                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.login(self.user, function (data) {
                     if (data.error)
                         AlertService.alertPopup('錯誤!', data.error);
                     else {
                         $rootScope.user = data.loginUser;
-                        if (data.account) {
-                            $rootScope.account = data.account;
-                            $rootScope.role = data.account.role;
-                        }
                         init();
                     }
                 });
@@ -48,7 +46,6 @@
         } else {
             FCMPlugin.getToken(function (deviceToken) {
                 self.user.deviceToken = deviceToken;
-                self.user.deviceToken = 'cT1Th9b3XMI:APA91bH1xuAFGxqj8Ow5IelZMtTU6mq5zznPL5v-Wp7nf3NWyzVVsGB4SJ01L4gvzCE8F6lUsfyzBQlsu08-_fdW_DXmJj5ZjxuV3IFbEykFUxFJOP472_Vx5YK8woalT_Kf55FV5Tb7';
                 UserService.register(self.user, function (data) {
                     if (data.error) {
                         AlertService.alertPopup('錯誤!', data.error);
@@ -68,28 +65,41 @@
         init();
     };
 
-    self.openAccount = function () {
-        AccountService.openAccount({ userId: self.user._id, storeId: $rootScope.storeId }, function (data) {
+    self.openAccount = function (storeId) {
+        $rootScope.setStoreId(storeId);
+        AccountService.openAccount({ userId: self.user._id, username: self.user.username}, function (data) {
             if (data.error)
                 AlertService.alertPopup('錯誤!', data.error);
             else {
                 FCMPlugin.subscribeToTopic($rootScope.storeTopic);
-                $rootScope.account = data.account;
-                $rootScope.role = data.account.role;
-                init();
+                self.login();
             }
         });
     };
 
+    self.loginAccount = function(account) {
+        $rootScope.setStoreId(account.storeId);
+        AccountService.loginAccount({ accountId: account.accountId },
+            function(data) {
+                if (data.err)
+                    AlertService.alertPopup('錯誤!', data.error);
+                else {
+                    $rootScope.account = data.account;
+                    $rootScope.role = data.account.role;
+                    init();
+                }
+            });
+    };
+
     self.closeAccount = function () {
-        AccountService.closeAccount($rootScope.storeId, self.account._id, function (data) {
+        AccountService.closeAccount(self.account._id, function (data) {
             if (data.error) {
                 AlertService.alertPopup('錯誤!', data.error);
             } else {
                 FCMPlugin.unsubscribeFromTopic($rootScope.storeTopic);
                 delete $rootScope.account;
                 delete $rootScope.role;
-                init();
+                self.login();
             }
         });
     };

@@ -45,15 +45,13 @@
                 <div class="item item-text-wrap">
                     <label class="item item-input item-select">
                         <div class="input-label">
-                            商店：
+                            商店開戶：
                         </div>
-                        <select>
-                            <option>{{userCtrl.account ? '商店展業中' : 'Store24'}}</option>
-                        </select>
+                        <select ng-model="userCtrl.selectStoreId" ng-options="storeId for storeId in userCtrl.unOpenStores"></select>
                     </label>
                     <div class="row">
-                        <div class="col col-100" ng-if="!userCtrl.account">
-                            <button class="button button-block button-dark" ng-click="userCtrl.openAccount()">
+                        <div class="col col-100">
+                            <button class="button button-block button-dark" ng-click="userCtrl.openAccount(userCtrl.selectStoreId)">
                                 開戶
                             </button>
                         </div>
@@ -65,11 +63,9 @@
                 <div class="item item-text-wrap">
                     <label class="item item-input item-select">
                         <div class="input-label">
-                            商店：
+                            商店作業：
                         </div>
-                        <select>
-                            <option>{{!userCtrl.account ? '尚無帳戶' : 'Store24'}}</option>
-                        </select>
+                        <select ng-model="userCtrl.selectAccount" ng-options="'Store'+ account.storeId for account in userCtrl.accounts" ng-change="userCtrl.loginAccount(userCtrl.selectAccount)"></select>
                     </label>
                     <div ng-if="userCtrl.account">
                         <br />
