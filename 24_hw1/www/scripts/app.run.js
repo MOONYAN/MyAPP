@@ -4,7 +4,7 @@
     var domain = 'https://ilab.csie.io';
     $rootScope.iStoreCenter = 'https://ilab.csie.io/apps09/istore';
     //$rootScope.iStoreUrl = 'https://ilab.csie.io/apps' + $rootScope.storeId + '/store';
-    $rootScope.iStoreUrl = domain + '/apps' + $rootScope.storeId + '/istore';
+    $rootScope.iStoreUrl = domain + '/apps' + $rootScope.storeId + '/store';
     $rootScope.storeTopic = 'store' + $rootScope.storeId;
 
     $rootScope.useCenterToken = false;
