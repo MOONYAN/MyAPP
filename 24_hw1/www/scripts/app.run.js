@@ -1,7 +1,10 @@
 ﻿angular.module('2017Apps').run(['$rootScope', '$ionicPlatform', 'AlertService', function ($rootScope, $ionicPlatform, AlertService) {
     $rootScope.storeId = '24';
+    //var domain = 'http://192.168.50.86:3024';
+    var domain = 'https://ilab.csie.io';
     $rootScope.iStoreCenter = 'https://ilab.csie.io/apps09/istore';
-    $rootScope.iStoreUrl = 'https://ilab.csie.io/apps' + $rootScope.storeId + '/istore';
+    //$rootScope.iStoreUrl = 'https://ilab.csie.io/apps' + $rootScope.storeId + '/store';
+    $rootScope.iStoreUrl = domain + '/apps' + $rootScope.storeId + '/istore';
     $rootScope.storeTopic = 'store' + $rootScope.storeId;
 
     $rootScope.useCenterToken = false;
@@ -9,7 +12,7 @@
 
     $rootScope.setStoreId = function (storeId) {
         $rootScope.storeId = storeId;
-        $rootScope.iStoreUrl = 'https://ilab.csie.io/apps' + storeId + '/istore';
+        $rootScope.iStoreUrl = domain + '/apps' + storeId + '/store';
         $rootScope.storeTopic = 'store' + storeId;
     };
 

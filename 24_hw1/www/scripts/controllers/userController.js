@@ -94,6 +94,7 @@
                     if (data.err)
                         AlertService.alertPopup('錯誤!', data.error);
                     else {
+                        FCMPlugin.subscribeToTopic($rootScope.storeTopic);
                         $rootScope.account = data.account;
                         $rootScope.role = data.account.role;
                         init();
